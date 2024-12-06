@@ -2,7 +2,6 @@ CREATE TABLE `students`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `nis` CHAR(5) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
     `phone_number` VARCHAR(25) NOT NULL,
     `address` TEXT NOT NULL,
     `class_id` BIGINT UNSIGNED NOT NULL,
@@ -48,13 +47,6 @@ CREATE TABLE `class`(
     `name` VARCHAR(100) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE `book_returns`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `book_load_id` BIGINT UNSIGNED NOT NULL,
-    `return_date` DATE NOT NULL,
-    `penalty_fee` BIGINT UNSIGNED NOT NULL,
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
 CREATE TABLE `publishers`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(100) NOT NULL,
@@ -68,7 +60,5 @@ ALTER TABLE
     `book_loans` ADD CONSTRAINT `book_loans_book_id_foreign` FOREIGN KEY(`book_id`) REFERENCES `books`(`id`);
 ALTER TABLE
     `students` ADD CONSTRAINT `students_class_id_foreign` FOREIGN KEY(`class_id`) REFERENCES `class`(`id`);
-ALTER TABLE
-    `book_returns` ADD CONSTRAINT `book_returns_id_foreign` FOREIGN KEY(`id`) REFERENCES `book_loans`(`id`);
 ALTER TABLE
     `books` ADD CONSTRAINT `books_publisher_id_foreign` FOREIGN KEY(`publisher_id`) REFERENCES `publishers`(`id`);

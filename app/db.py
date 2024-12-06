@@ -31,11 +31,11 @@ class DB:
 
     def fetch_all(self, query):
         self.cursor.execute(query)
-        return self.cursor.fetch_all()
+        return self.cursor.fetchall()
 
     def fetch_one(self, query):
         self.cursor.execute(query)
-        return self.cursor.fetch_one()
+        return self.cursor.fetchone()
 
     def close(self):
         self.cursor.close()

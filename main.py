@@ -1,6 +1,7 @@
+import tkinter as tk
 from dotenv import load_dotenv
 from app.db import DB
-from repository.class_repository import ClassRepository
+from ui.app import App
 
 
 def init():
@@ -8,8 +9,9 @@ def init():
 
 
 def main():
-    classRepository = ClassRepository()
-    classRepository.add("Math")
+    root = tk.Tk()
+    App(root)
+    root.mainloop()
 
 
 def cleanup():
