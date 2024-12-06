@@ -124,23 +124,23 @@ class PublisherFrame(Base):
 
     def add_publisher(self):
         name = self.name_entry.get().strip()
-        publisherDto = PublisherDTO(name=name)
-        self.publisher_service.add_publisher(publisherDto)
+        publisher_dto = PublisherDTO(name=name)
+        self.publisher_service.add_publisher(publisher_dto)
 
         self.reset_buttons()
         self.render()
 
     def update_publisher(self):
         name = self.name_entry.get().strip()
-        publisherDto = PublisherDTO(id=self.selected_item, name=name)
-        self.publisher_service.update_publisher(publisherDto)
+        publisher_dto = PublisherDTO(id=self.selected_item, name=name)
+        self.publisher_service.update_publisher(publisher_dto)
 
         self.reset_buttons()
         self.render()
 
     def delete_publisher(self):
-        publisherDto = PublisherDTO(id=self.selected_item)
-        self.publisher_service.delete_publisher(publisherDto)
+        publisher_dto = PublisherDTO(id=self.selected_item)
+        self.publisher_service.delete_publisher(publisher_dto)
 
         self.reset_buttons()
         self.render()

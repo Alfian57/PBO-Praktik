@@ -124,23 +124,23 @@ class ClassFrame(Base):
 
     def add_class(self):
         name = self.name_entry.get().strip()
-        classDto = ClassDTO(name=name)
-        self.class_service.add_class(classDto)
+        class_dto = ClassDTO(name=name)
+        self.class_service.add_class(class_dto)
 
         self.reset_buttons()
         self.render()
 
     def update_class(self):
         name = self.name_entry.get().strip()
-        classDto = ClassDTO(id=self.selected_item, name=name)
-        self.class_service.update_class(classDto)
+        class_dto = ClassDTO(id=self.selected_item, name=name)
+        self.class_service.update_class(class_dto)
 
         self.reset_buttons()
         self.render()
 
     def delete_class(self):
-        classDTO = ClassDTO(id=self.selected_item)
-        self.class_service.delete_class(classDTO)
+        class_dto = ClassDTO(id=self.selected_item)
+        self.class_service.delete_class(class_dto)
 
         self.reset_buttons()
         self.render()

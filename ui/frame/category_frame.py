@@ -124,23 +124,23 @@ class CategoryFrame(Base):
 
     def add_category(self):
         name = self.name_entry.get().strip()
-        categoryDto = CategoryDTO(name=name)
-        self.category_service.add_category(categoryDto)
+        category_dto = CategoryDTO(name=name)
+        self.category_service.add_category(category_dto)
 
         self.reset_buttons()
         self.render()
 
     def update_category(self):
         name = self.name_entry.get().strip()
-        categoryDto = CategoryDTO(id=self.selected_item, name=name)
-        self.category_service.update_category(categoryDto)
+        category_dto = CategoryDTO(id=self.selected_item, name=name)
+        self.category_service.update_category(category_dto)
 
         self.reset_buttons()
         self.render()
 
     def delete_category(self):
-        categoryDTO = CategoryDTO(id=self.selected_item)
-        self.category_service.delete_category(categoryDTO)
+        category_dto = CategoryDTO(id=self.selected_item)
+        self.category_service.delete_category(category_dto)
 
         self.reset_buttons()
         self.render()

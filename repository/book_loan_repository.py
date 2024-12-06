@@ -19,16 +19,25 @@ class BookLoanRepository:
         )
 
     def get_all(self) -> list[BookLoanDTO]:
-        sql = "SELECT * FROM book_loans"
+        sql = "SELECT id, student_id, book_id, borrowing_date, return_date FROM book_loans"
         results = self.db.fetch_all(sql)
-        return [BookLoanDTO(*result) for result in results]
+        return [
+            BookLoanDTO(
+                id=result[0],
+                student_id=result[1],
+                book_id=result[2],
+                borrowing_date=result[3],
+                return_date=result[4],
+            )
+            for result in results
+        ]
 
     def get_all_with_student_and_book(self) -> list[BookLoanDTO]:
         sql = """
-            SELECT book_loans.id, books.title, students.name, book_loans.borrowing_date, book_loans.return_date
-            FROM book_loans
-            JOIN students ON book_loans.student_id = students.id
-            JOIN books ON book_loans.book_id = books.id
+            SELECT bl.id, b.title, s.name, bl.borrowing_date, bl.return_date
+            FROM book_loans as bl
+            JOIN students as s ON bl.student_id = s.id
+            JOIN books as b ON bl.book_id = b.id
         """
         results = self.db.fetch_all(sql)
         return [
@@ -43,19 +52,47 @@ class BookLoanRepository:
         ]
 
     def get_by_id(self, id: int) -> BookLoanDTO:
-        sql = "SELECT * FROM book_loans WHERE id = %s"
+        sql = "SELECT id, student_id, book_id, borrowing_date, return_date FROM book_loans WHERE id = %s"
         result = self.db.fetch_one(sql, (id,))
-        return BookLoanDTO(*result) if result else None
+        return (
+            BookLoanDTO(
+                id=result[0],
+                student_id=result[1],
+                book_id=result[2],
+                borrowing_date=result[3],
+                return_date=result[4],
+            )
+            if result
+            else None
+        )
 
     def get_by_student_id(self, student_id: int) -> list[BookLoanDTO]:
-        sql = "SELECT * FROM book_loans WHERE student_id = %s"
+        sql = "SELECT id, student_id, book_id, borrowing_date, return_date FROM book_loans WHERE student_id = %s"
         results = self.db.fetch_all(sql, (student_id,))
-        return [BookLoanDTO(*result) for result in results]
+        return [
+            BookLoanDTO(
+                id=result[0],
+                student_id=result[1],
+                book_id=result[2],
+                borrowing_date=result[3],
+                return_date=result[4],
+            )
+            for result in results
+        ]
 
     def get_by_book_id(self, book_id: int) -> list[BookLoanDTO]:
-        sql = "SELECT * FROM book_loans WHERE book_id = %s"
+        sql = "SELECT id, student_id, book_id, borrowing_date, return_date FROM book_loans WHERE book_id = %s"
         results = self.db.fetch_all(sql, (book_id,))
-        return [BookLoanDTO(*result) for result in results]
+        return [
+            BookLoanDTO(
+                id=result[0],
+                student_id=result[1],
+                book_id=result[2],
+                borrowing_date=result[3],
+                return_date=result[4],
+            )
+            for result in results
+        ]
 
     def update(self, book_loan_dto: BookLoanDTO) -> None:
         sql = "UPDATE book_loans SET student_id = %s, book_id = %s, borrowing_date = %s, return_date = %s WHERE id = %s"

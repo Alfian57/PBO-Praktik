@@ -11,12 +11,12 @@ class ClassRepository:
         self.db.execute(sql, (class_dto.name,))
 
     def get_all(self) -> list[ClassDTO]:
-        sql = "SELECT * FROM class"
+        sql = "SELECT id, name, created_at FROM class"
         rows = self.db.fetch_all(sql)
         return [ClassDTO(id=row[0], name=row[1], created_at=row[2]) for row in rows]
 
     def get_by_id(self, id: int) -> ClassDTO:
-        sql = "SELECT * FROM class WHERE id = %s"
+        sql = "SELECT id, name, created_at FROM class WHERE id = %s"
         row = self.db.fetch_one(sql, (id,))
         if row:
             return ClassDTO(id=row[0], name=row[1], created_at=row[2])

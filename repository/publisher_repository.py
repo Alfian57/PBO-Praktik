@@ -11,12 +11,12 @@ class PublisherRepository:
         self.db.execute(sql, (publisher_dto.name,))
 
     def get_all(self) -> list[PublisherDTO]:
-        sql = "SELECT * FROM publishers"
+        sql = "SELECT id, name, created_at FROM publishers"
         rows = self.db.fetch_all(sql)
         return [PublisherDTO(id=row[0], name=row[1], created_at=row[2]) for row in rows]
 
     def get_by_id(self, id: int) -> PublisherDTO:
-        sql = "SELECT * FROM publishers WHERE id = %s"
+        sql = "SELECT id, name, created_at FROM publishers WHERE id = %s"
         row = self.db.fetch_one(sql, (id,))
         if row:
             return PublisherDTO(id=row[0], name=row[1], created_at=row[2])

@@ -264,14 +264,14 @@ class BookFrame(Base):
         category = self.category_map.get(self.category_var.get().strip())
         publisher = self.publisher_map.get(self.publisher_var.get().strip())
         year = self.year_entry.get().strip()
-        bookDto = BookDTO(
+        book_dto = BookDTO(
             title=title,
             isbn=isbn,
             category_id=category,
             publisher_id=publisher,
             publish_year=year,
         )
-        self.book_service.add_book(bookDto)
+        self.book_service.add_book(book_dto)
 
         self.reset_buttons()
         self.render()
@@ -282,7 +282,7 @@ class BookFrame(Base):
         category = self.category_map.get(self.category_var.get().strip())
         publisher = self.publisher_map.get(self.publisher_var.get().strip())
         year = self.year_entry.get().strip()
-        bookDto = BookDTO(
+        book_dto = BookDTO(
             id=self.selected_item,
             title=title,
             isbn=isbn,
@@ -290,14 +290,14 @@ class BookFrame(Base):
             publisher_id=publisher,
             publish_year=year,
         )
-        self.book_service.update_book(bookDto)
+        self.book_service.update_book(book_dto)
 
         self.reset_buttons()
         self.render()
 
     def delete_book(self):
-        bookDto = BookDTO(id=self.selected_item)
-        self.book_service.delete_book(bookDto)
+        book_dto = BookDTO(id=self.selected_item)
+        self.book_service.delete_book(book_dto)
 
         self.reset_buttons()
         self.render()

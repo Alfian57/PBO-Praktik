@@ -20,7 +20,7 @@ class StudentRepository:
         )
 
     def get_all(self) -> list[StudentDTO]:
-        sql = "SELECT * FROM students"
+        sql = "SELECT id, nis, name, phone_number, address, class_id FROM students"
         result = self.db.fetch_all(sql)
         return [
             StudentDTO(
@@ -51,12 +51,36 @@ class StudentRepository:
         ]
 
     def get_by_nis(self, nis: str) -> StudentDTO:
-        sql = "SELECT * FROM students WHERE nis = %s"
-        return self.db.fetch_one(sql, (nis,))
+        sql = "SELECT id, nis, name, phone_number, address, class_id FROM students WHERE nis = %s"
+        result = self.db.fetch_one(sql, (nis,))
+        return (
+            StudentDTO(
+                id=result[0],
+                nis=result[1],
+                name=result[2],
+                phone_number=result[3],
+                address=result[4],
+                class_id=result[5],
+            )
+            if result
+            else None
+        )
 
     def get_by_id(self, id: int) -> StudentDTO:
-        sql = "SELECT * FROM students WHERE id = %s"
-        return self.db.fetch_one(sql, (id,))
+        sql = "SELECT id, nis, name, phone_number, address, class_id FROM students WHERE id = %s"
+        result = self.db.fetch_one(sql, (id,))
+        return (
+            StudentDTO(
+                id=result[0],
+                nis=result[1],
+                name=result[2],
+                phone_number=result[3],
+                address=result[4],
+                class_id=result[5],
+            )
+            if result
+            else None
+        )
 
     def update(self, student_dto: StudentDTO) -> None:
         sql = "UPDATE students SET nis = %s, name = %s, phone_number = %s, address = %s, class_id = %s WHERE id = %s"

@@ -242,10 +242,10 @@ class StudentFrame(Base):
         address = self.address_entry.get().strip()
         class_id = self.classses_map[self.class_var.get()]
 
-        studentDto = StudentDTO(
+        student_dto = StudentDTO(
             name=name, nis=nis, phone_number=phone, address=address, class_id=class_id
         )
-        self.student_service.add_student(studentDto)
+        self.student_service.add_student(student_dto)
 
         self.reset_buttons()
         self.render()
@@ -257,7 +257,7 @@ class StudentFrame(Base):
         address = self.address_entry.get().strip()
         class_id = self.classses_map[self.class_var.get()]
 
-        studentDto = StudentDTO(
+        student_dto = StudentDTO(
             id=self.selected_item,
             name=name,
             nis=nis,
@@ -265,14 +265,14 @@ class StudentFrame(Base):
             address=address,
             class_id=class_id,
         )
-        self.student_service.update_student(studentDto)
+        self.student_service.update_student(student_dto)
 
         self.reset_buttons()
         self.render()
 
     def delete_student(self):
-        studentDto = StudentDTO(id=self.selected_item)
-        self.student_service.delete_student(studentDto)
+        student_dto = StudentDTO(id=self.selected_item)
+        self.student_service.delete_student(student_dto)
 
         self.reset_buttons()
         self.render()

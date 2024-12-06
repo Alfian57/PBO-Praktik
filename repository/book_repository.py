@@ -20,7 +20,7 @@ class BookRepository:
         )
 
     def get_all(self) -> list[BookDTO]:
-        sql = "SELECT books.id, books.title, books.isbn, books.publish_year, books.created_at, books.category_id, books.publisher_id FROM books"
+        sql = "SELECT id, title, isbn, publish_year, created_at, category_id, publisher_id FROM books"
 
         result = self.db.fetch_all(sql)
         return [
@@ -57,9 +57,21 @@ class BookRepository:
         ]
 
     def get_by_id(self, id: int) -> BookDTO:
-        sql = "SELECT * FROM books WHERE id = %s"
+        sql = "SELECT id, title, isbn, publish_year, created_at, category_id, publisher_id FROM books WHERE id = %s"
         result = self.db.fetch_one(sql, (id,))
-        return BookDTO(**result) if result else None
+        return (
+            BookDTO(
+                id=result[0],
+                title=result[1],
+                isbn=result[2],
+                publish_year=result[3],
+                created_at=result[4],
+                category_id=result[5],
+                publisher_id=result[6],
+            )
+            if result
+            else None
+        )
 
     def update(self, book_dto: BookDTO) -> None:
         sql = "UPDATE books SET title = %s, isbn = %s, category_id = %s, publisher_id = %s, publish_year = %s WHERE id = %s"
