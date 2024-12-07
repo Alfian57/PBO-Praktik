@@ -3,6 +3,7 @@ from repository.book_loan_repository import BookLoanRepository
 from repository.book_repository import BookRepository
 from dto.book_loan_dto import BookLoanDTO
 from helper.show_message import display_message
+from helper.validator import Validator
 
 
 class BookLoanService:
@@ -21,36 +22,65 @@ class BookLoanService:
         return self.book_loan_repository.get_all_with_student_and_book()
 
     def add_book_loan(self, book_loan_dto: BookLoanDTO):
-        if not book_loan_dto.book_id:
-            display_message("ID buku tidak boleh kosong!", "error")
-            return
-
-        if not book_loan_dto.student_id:
-            display_message("ID siswa tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            book_loan_dto.__dict__,
+            {
+                "book_id": [Validator.required],
+                "student_id": [Validator.required],
+                "borrowing_date": [Validator.required, Validator.date],
+                "return_date": [Validator.required, Validator.date],
+            },
+            {
+                "book_id": "ID Buku",
+                "student_id": "ID Siswa",
+                "borrowing_date": "Tanggal Pinjam",
+                "return_date": "Tanggal Kembali",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.book_loan_repository.add(book_loan_dto)
         display_message("Peminjaman buku berhasil ditambahkan!", "info")
 
     def update_book_loan(self, book_loan_dto: BookLoanDTO):
-        if not book_loan_dto.id:
-            display_message("Pilih peminjaman buku yang ingin diperbarui!", "error")
-            return
-
-        if not book_loan_dto.book_id:
-            display_message("ID buku tidak boleh kosong!", "error")
-            return
-
-        if not book_loan_dto.student_id:
-            display_message("ID siswa tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            book_loan_dto.__dict__,
+            {
+                "id": [Validator.required],
+                "book_id": [Validator.required],
+                "student_id": [Validator.required],
+                "borrowing_date": [Validator.required, Validator.date],
+                "return_date": [Validator.required, Validator.date],
+            },
+            {
+                "id": "ID Peminjaman",
+                "book_id": "ID Buku",
+                "student_id": "ID Siswa",
+                "borrowing_date": "Tanggal Pinjam",
+                "return_date": "Tanggal Kembali",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.book_loan_repository.update(book_loan_dto)
         display_message("Peminjaman buku berhasil diperbarui!", "info")
 
     def delete_book_loan(self, book_loan_dto: BookLoanDTO):
-        if not book_loan_dto.id:
-            display_message("Pilih peminjaman buku yang ingin dihapus!", "error")
+        error_message = Validator.validate(
+            book_loan_dto.__dict__,
+            {
+                "id": [Validator.required],
+            },
+            {
+                "id": "ID Peminjaman",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         confirm = display_message(

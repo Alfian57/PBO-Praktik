@@ -21,7 +21,6 @@ class UIConstants:
     FONT_SIZE_NORMAL = 12
 
     # Dimensi
-
     WINDOW_WIDTH = root.winfo_screenwidth()
     WINDOW_HEIGHT = root.winfo_screenheight()
     SIDEBAR_WIDTH = 200

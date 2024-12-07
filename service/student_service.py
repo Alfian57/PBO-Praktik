@@ -2,6 +2,7 @@ from repository.student_repository import StudentRepository
 from repository.class_repository import ClassRepository
 from dto.student_dto import StudentDTO
 from helper.show_message import display_message
+from helper.validator import Validator
 
 
 class StudentService:
@@ -16,40 +17,63 @@ class StudentService:
         return self.student_repository.get_all_with_class()
 
     def add_student(self, studentDto: StudentDTO):
-        if (
-            not studentDto.name
-            or not studentDto.nis
-            or not studentDto.phone_number
-            or not studentDto.address
-            or not studentDto.class_id
-        ):
-            display_message("Data siswa tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            studentDto.__dict__,
+            {
+                "name": [Validator.required, Validator.max_length(100)],
+                "nis": [Validator.required, Validator.length(5)],
+                "phone_number": [Validator.required, Validator.max_length(25)],
+                "address": [Validator.required],
+                "class_id": [Validator.required],
+            },
+            {
+                "name": "Nama",
+                "nis": "NIS",
+                "phone_number": "Nomor Telepon",
+                "address": "Alamat",
+                "class_id": "Kelas",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.student_repository.add(studentDto)
         display_message("siswa berhasil ditambahkan!", "info")
 
     def update_student(self, studentDto: StudentDTO):
-        if not studentDto.id:
-            display_message("Pilih siswa yang ingin diperbarui!", "error")
-            return
-
-        if (
-            not studentDto.name
-            or not studentDto.nis
-            or not studentDto.phone_number
-            or not studentDto.address
-            or not studentDto.class_id
-        ):
-            display_message("Data siswa tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            studentDto.__dict__,
+            {
+                "name": [Validator.required, Validator.max_length(100)],
+                "nis": [Validator.required, Validator.length(5)],
+                "phone_number": [Validator.required, Validator.max_length(25)],
+                "address": [Validator.required],
+                "class_id": [Validator.required],
+            },
+            {
+                "name": "Nama",
+                "nis": "NIS",
+                "phone_number": "Nomor Telepon",
+                "address": "Alamat",
+                "class_id": "Kelas",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.student_repository.update(studentDto)
         display_message("siswa berhasil diperbarui!", "info")
 
     def delete_student(self, studentDto: StudentDTO):
-        if not studentDto.id:
-            display_message("Pilih siswa yang ingin dihapus!", "error")
+        error_message = Validator.validate(
+            studentDto.__dict__,
+            {"id": [Validator.required]},
+            {"id": "ID"},
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         confirm = display_message(

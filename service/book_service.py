@@ -3,6 +3,7 @@ from repository.publisher_repository import PublisherRepository
 from repository.category_repository import CategoryRepository
 from dto.book_dto import BookDTO
 from helper.show_message import display_message
+from helper.validator import Validator
 
 
 class BookService:
@@ -21,40 +22,64 @@ class BookService:
         return self.book_repository.get_all_with_category_and_publisher()
 
     def add_book(self, book_dto: BookDTO):
-        if (
-            not book_dto.title
-            or not book_dto.isbn
-            or not book_dto.category_id
-            or not book_dto.publisher_id
-            or not book_dto.publish_year
-        ):
-            display_message("Data buku tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            book_dto.__dict__,
+            {
+                "title": [Validator.required, Validator.max_length(100)],
+                "isbn": [Validator.required, Validator.max_length(25)],
+                "category_id": [Validator.required],
+                "publisher_id": [Validator.required],
+                "publish_year": [Validator.required, Validator.year],
+            },
+            {
+                "title": "Judul",
+                "isbn": "ISBN",
+                "category_id": "Kategori",
+                "publisher_id": "Penerbit",
+                "publish_year": "Tahun Terbit",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.book_repository.add(book_dto)
         display_message("Buku berhasil ditambahkan!", "info")
 
     def update_book(self, book_dto: BookDTO):
-        if not book_dto.id:
-            display_message("Pilih buku yang ingin diperbarui!", "error")
-            return
-
-        if (
-            not book_dto.title
-            or not book_dto.isbn
-            or not book_dto.category_id
-            or not book_dto.publisher_id
-            or not book_dto.publish_year
-        ):
-            display_message("Data buku tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            book_dto.__dict__,
+            {
+                "id": [Validator.required],
+                "title": [Validator.required, Validator.max_length(100)],
+                "isbn": [Validator.required, Validator.max_length(25)],
+                "category_id": [Validator.required],
+                "publisher_id": [Validator.required],
+                "publish_year": [Validator.required, Validator.year],
+            },
+            {
+                "id": "ID",
+                "title": "Judul",
+                "isbn": "ISBN",
+                "category_id": "Kategori",
+                "publisher_id": "Penerbit",
+                "publish_year": "Tahun Terbit",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.book_repository.update(book_dto)
         display_message("Buku berhasil diperbarui!", "info")
 
     def delete_book(self, book_dto: BookDTO):
-        if not book_dto.id:
-            display_message("Pilih buku yang ingin dihapus!", "error")
+        error_message = Validator.validate(
+            book_dto.__dict__, {"id": [Validator.required]}, {"id": "ID"}
+        )
+
+        if error_message:
+            display_message(error_message, "error")
             return
 
         confirm = display_message(

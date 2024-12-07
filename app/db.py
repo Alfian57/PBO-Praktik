@@ -14,7 +14,7 @@ class DB:
 
     def __init__(self):
         if DB.__instance is not None:
-            raise Exception("This class is a singleton!")
+            raise Exception("Kelas ini adalah singleton!")
         else:
             self.connection = mysql.connector.connect(
                 host=os.getenv("DB_HOST"),

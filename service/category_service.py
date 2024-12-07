@@ -1,6 +1,7 @@
 from repository.category_repository import CategoryRepository
 from dto.category_dto import CategoryDTO
 from helper.show_message import display_message
+from helper.validator import Validator
 
 
 class CategoryService:
@@ -11,28 +12,53 @@ class CategoryService:
         return self.category_repository.get_all()
 
     def add_category(self, category_dto: CategoryDTO):
-        if not category_dto.name:
-            display_message("Nama kategori tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            category_dto.__dict__,
+            {
+                "name": [Validator.required, Validator.max_length(100)],
+            },
+            {
+                "name": "Nama Kategori",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.category_repository.add(category_dto)
         display_message("Kategori berhasil ditambahkan!", "info")
 
     def update_category(self, category_dto: CategoryDTO):
-        if not category_dto.id:
-            display_message("Pilih kategori yang ingin diperbarui!", "error")
-            return
-
-        if not category_dto.name:
-            display_message("Nama kategori tidak boleh kosong!", "error")
+        error_message = Validator.validate(
+            category_dto.__dict__,
+            {
+                "id": [Validator.required],
+                "name": [Validator.required, Validator.max_length(100)],
+            },
+            {
+                "id": "ID Kategori",
+                "name": "Nama Kategori",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         self.category_repository.update(category_dto)
         display_message("Kategori berhasil diperbarui!", "info")
 
     def delete_category(self, category_dto: CategoryDTO):
-        if not category_dto.id:
-            display_message("Pilih kategori yang ingin dihapus!", "error")
+        error_message = Validator.validate(
+            category_dto.__dict__,
+            {
+                "id": [Validator.required],
+            },
+            {
+                "id": "ID Kategori",
+            },
+        )
+        if error_message:
+            display_message(error_message, "error")
             return
 
         confirm = display_message(

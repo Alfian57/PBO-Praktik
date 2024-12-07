@@ -1,5 +1,5 @@
 import tkinter as tk
-from service.admin_service import AdminService
+from service.login_service import LoginService
 from dto.admin_dto import AdminDTO
 from constant.ui_constant import UIConstants as const
 from ui.app import App
@@ -11,7 +11,7 @@ class Login:
         self.root.title("Login Admin")
         self.root.geometry(f"{const.WINDOW_WIDTH}x{const.WINDOW_HEIGHT}")
 
-        self.admin_service = AdminService()
+        self.admin_service = LoginService()
 
         self.show_login_window()
 

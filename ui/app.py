@@ -19,7 +19,7 @@ from ui.frame.book_loan_frame import BookLoanFrame
 class App:
     def __init__(self, root: Tk):
         self.root = root
-        self.root.title("Sistem Peminjaman Buku")
+        self.root.title("Sistem Pencatatan Peminjaman Buku")
         self.root.geometry(f"{const.WINDOW_WIDTH}x{const.WINDOW_HEIGHT}")
         self.root.resizable(False, False)
 
