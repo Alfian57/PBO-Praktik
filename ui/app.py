@@ -44,6 +44,7 @@ class App:
         self.book_loan_service = BookLoanService()
 
     def setup_sidebar(self):
+        self.show_books()
         menu_commands = {
             "Buku": self.show_books,
             "Siswa": self.show_students,

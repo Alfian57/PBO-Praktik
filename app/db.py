@@ -29,12 +29,12 @@ class DB:
         self.cursor.execute(query, params or ())
         self.connection.commit()
 
-    def fetch_all(self, query):
-        self.cursor.execute(query)
+    def fetch_all(self, query, params=None):
+        self.cursor.execute(query, params or ())
         return self.cursor.fetchall()
 
-    def fetch_one(self, query):
-        self.cursor.execute(query)
+    def fetch_one(self, query, params=None):
+        self.cursor.execute(query, params or ())
         return self.cursor.fetchone()
 
     def close(self):

@@ -1,8 +1,7 @@
 import tkinter as tk
 from dotenv import load_dotenv
 from app.db import DB
-from ui.app import App
-from ui.login_frame import AdminApp
+from ui.login import Login
 
 
 def init():
@@ -11,7 +10,7 @@ def init():
 
 def main():
     root = tk.Tk()
-    AdminApp(root)
+    Login(root)
     root.mainloop()
 
 

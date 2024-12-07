@@ -27,9 +27,9 @@ class StudentRepository:
                 id=row[0],
                 nis=row[1],
                 name=row[2],
-                phone_number=row[4],
-                address=row[5],
-                class_id=row[6],
+                phone_number=row[3],
+                address=row[4],
+                class_id=row[5],
             )
             for row in result
         ]
