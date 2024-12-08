@@ -5,9 +5,12 @@ from database_seeder.class_seeder import ClassSeeder
 from database_seeder.student_seeder import StudentSeeder
 from database_seeder.book_seeder import BookSeeder
 from database_seeder.book_loan_seeder import BookLoanSeeder
+from dotenv import load_dotenv
 
 
 def main():
+    load_dotenv()
+
     admin_seeder = AdminSeeder()
     category_seeder = CategorySeeder()
     publisher_seeder = PublisherSeeder()
