@@ -20,6 +20,14 @@ class UIConstants:
     FONT_SIZE_BUTTON = 12
     FONT_SIZE_NORMAL = 12
 
+    # FONT LOGIN
+    FONT_LOGIN = "Helvetica"
+    FONT_LOGIN_TITLE = 28
+    FONT_LOGIN_IKON = 24
+    FONT_LOGIN_NORMAL = 16
+    FONT_LOGIN_SMALL = 14
+    FONT_LOGIN_XS = 8
+
     # Dimensi
     WINDOW_WIDTH = root.winfo_screenwidth()
     WINDOW_HEIGHT = root.winfo_screenheight()
