@@ -4,6 +4,7 @@ from ui.frame.base import Base
 from constant.ui_constant import UIConstants as const
 from service.book_loan_service import BookLoanService
 from dto.book_loan_dto import BookLoanDTO
+from tkcalendar import DateEntry
 
 
 class BookLoanFrame(Base):
@@ -71,7 +72,7 @@ class BookLoanFrame(Base):
 
         student_label = tk.Label(
             form_frame,
-            text="Kelas:",
+            text="Siswa:",
             font=(const.FONT_MAIN, const.FONT_SIZE_NORMAL),
         )
         student_label.grid(
@@ -111,7 +112,7 @@ class BookLoanFrame(Base):
             sticky="w",
         )
 
-        self.borrowing_date_entry = tk.Entry(
+        self.borrowing_date_entry = DateEntry(
             form_frame,
             font=(const.FONT_MAIN, const.FONT_SIZE_NORMAL),
         )
@@ -136,7 +137,7 @@ class BookLoanFrame(Base):
             sticky="w",
         )
 
-        self.return_date_entry = tk.Entry(
+        self.return_date_entry = DateEntry(
             form_frame,
             font=(const.FONT_MAIN, const.FONT_SIZE_NORMAL),
         )

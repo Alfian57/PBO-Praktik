@@ -21,7 +21,7 @@ class App:
         self.root = root
         self.root.title("Sistem Pencatatan Peminjaman Buku")
         self.root.geometry(f"{const.WINDOW_WIDTH}x{const.WINDOW_HEIGHT}")
-        self.root.resizable(False, False)
+        # self.root.resizable(False, False)
 
         # Setup main layout
         self.main_frame = tk.Frame(
@@ -52,6 +52,7 @@ class App:
             "Kelas": self.show_classes,
             "Penerbit": self.show_publishers,
             "Peminjaman": self.show_borrowing,
+            "Keluar": self.logout,
         }
 
         sidebar = Sidebar(self.root, menu_commands)
@@ -80,3 +81,10 @@ class App:
     def show_borrowing(self):
         book_loan_frame = BookLoanFrame(self.main_frame, self.book_loan_service)
         book_loan_frame.render()
+
+    def logout(self):
+        from ui.login import Login
+
+        for widget in self.root.winfo_children():
+            widget.destroy()
+        Login(self.root)

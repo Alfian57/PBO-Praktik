@@ -2,7 +2,6 @@ import tkinter as tk
 from service.login_service import LoginService
 from dto.admin_dto import AdminDTO
 from constant.ui_constant import UIConstants as const
-from ui.app import App
 from tkinter import ttk
 
 
@@ -149,6 +148,8 @@ class Login:
             self.show_dashboard()
 
     def show_dashboard(self):
+        from ui.app import App
+
         self.clear_window()
         App(self.root)
 
