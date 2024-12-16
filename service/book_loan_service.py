@@ -27,8 +27,16 @@ class BookLoanService:
             {
                 "book_id": [Validator.required],
                 "student_id": [Validator.required],
-                "borrowing_date": [Validator.required, Validator.date],
-                "return_date": [Validator.required, Validator.date],
+                "borrowing_date": [
+                    Validator.required,
+                    Validator.date,
+                    Validator.date_after_today,
+                ],
+                "return_date": [
+                    Validator.required,
+                    Validator.date,
+                    Validator.date_after(book_loan_dto.borrowing_date),
+                ],
             },
             {
                 "book_id": "ID Buku",

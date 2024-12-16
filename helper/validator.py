@@ -70,3 +70,22 @@ class Validator:
             datetime.datetime.strptime(year, "%Y")
         except ValueError:
             return "tidak valid!"
+
+    @staticmethod
+    def date_after_today(date: str) -> str:
+        try:
+            date = datetime.datetime.strptime(date, "%Y-%m-%d")
+            if date < datetime.datetime.now():
+                return "tidak boleh sebelum hari ini!"
+        except ValueError:
+            return "tidak valid!"
+
+    @staticmethod
+    def date_after(reference_date: str):
+        def validate(date: str) -> str:
+            date = datetime.datetime.strptime(date, "%Y-%m-%d")
+            reference_date_new = datetime.datetime.strptime(reference_date, "%Y-%m-%d")
+            if date < reference_date_new:
+                return f"tidak boleh sebelum {reference_date_new.strftime('%d %B %Y')}!"
+
+        return validate
