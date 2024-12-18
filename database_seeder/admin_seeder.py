@@ -9,6 +9,7 @@ class AdminSeeder:
 
     def get_data(self):
         return [
+            {"name": "Admin", "email": "admin@gmail.com", "password": "password"},
             {"name": "Alfian", "email": "alfian@gmail.com", "password": "password"},
             {"name": "Rasyid", "email": "rasyid@gmail.com", "password": "password"},
             {"name": "Arfan", "email": "arfan@gmail.com", "password": "password"},

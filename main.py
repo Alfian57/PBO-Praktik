@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from app.db import DB
 from ui.login import Login
 
+# TOLONG BACA README.md UNTUK SETUP PROJECTNYA
+
 
 def init():
     load_dotenv()
